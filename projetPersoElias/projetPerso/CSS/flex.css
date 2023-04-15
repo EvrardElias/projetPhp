@@ -1,0 +1,16 @@
+.flexible {
+    display: flex;
+}
+
+.justify-content-space-around{
+    justify-content: space-around;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+}

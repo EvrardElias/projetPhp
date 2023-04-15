@@ -1,0 +1,47 @@
+body {
+    background-color: blueviolet;
+    margin: 0;
+    padding: 0;
+}
+
+.cadreResto {
+    background-color: orange;
+    border: 2px solid white;
+    align-items: center;
+    width: 400px;
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.blocImageResto {
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}
+
+header {
+    background-color: orange;
+    align-items: center;
+    padding: 15px;
+}
+
+fieldset {
+    border-color: orange;
+    border-radius: 5%;
+    border-width: 25px;
+    text-align: center;
+}
+
+main {
+    width: 90%;
+    margin: 0 auto;
+}
+
+fieldset legend {
+    font-size: 2em;
+    font-weight: bold;
+    color: orange;
+}

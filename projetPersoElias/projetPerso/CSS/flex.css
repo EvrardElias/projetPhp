@@ -10,7 +10,10 @@
     flex-wrap: wrap;
 }
 
-.menu {
-    display: flex;
-    justify-content: space-around;
+.justify-content-center{
+    justify-content: center;
+}
+
+.space-evenly{
+    justify-content: space-evenly;
 }

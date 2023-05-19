@@ -23,8 +23,8 @@ if ($uri === "/index.php" || $uri === "/") {
         ajouterEtoileRestaurant($dbh, $restaurantId, $_POST['etoile']);
         header("location:/mesRestaurants");
     }
-    $nourritures = selectAllNourriture($dbh);
-    $etoiles = selectAllEtoile($dbh);
+    $nourritures = selectNourritureRestaurant($dbh);
+    $etoiles = selectEtoileRestaurant($dbh);
     require_once "Templates/Restaurants/editOrCreateRestaurant.php";
 
 } elseif ($uri === "/mesRestaurants") {
@@ -32,9 +32,9 @@ if ($uri === "/index.php" || $uri === "/") {
     require_once "Templates/Restaurants/pageAcceuil.php";
 } elseif (isset($_GET["restaurantId"]) && $uri === "/voirRestaurant?restaurantId=" . $_GET["restaurantId"]) {
     $restaurant = selectOneRestaurant($dbh);
-    $nourriture = selectAllNourriture($dbh);
-    $etoile = selectAllEtoile($dbh);
-    $menus = selectMenuByRestaurant($dbh, $_GET["restaurantId"]);
+    $nourritures = selectNourritureRestaurant($dbh);
+    $etoiles = selectEtoileRestaurant($dbh);
+    $menus = selectMenuRestaurant($dbh, $_GET["restaurantId"]);
     require_once "Templates/Restaurants/voirRestaurant.php";
 }
 

@@ -1,13 +1,15 @@
 <?php
 
-function selectAllEtoile($dbh)
+function selectEtoileRestaurant($dbh)
 {
     try {
-        $query = 'select * from etoile';
-        $nombreEtoile = $dbh->prepare($query);
-        $nombreEtoile->execute();
-        $nombreEtoile = $nombreEtoile->fetchAll();
-        return $nombreEtoile;
+        $query = 'select * from etoile where etoileId in (select etoileId from etoile_restaurant where restaurantId = :restaurantId)';
+        $selectEtoile = $dbh->prepare($query);
+        $selectEtoile->execute([
+            'restaurantId' => $_GET["restaurantId"]
+        ]);
+        $etoiles = $selectEtoile->fetchAll();
+        return $etoiles;
     } catch (PDOException $e) {
         $message = $e->getMessage();
         die($message);

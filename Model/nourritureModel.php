@@ -1,13 +1,15 @@
 <?php
 
-function selectAllNourriture($dbh)
+function selectNourritureRestaurant($dbh)
 {
     try {
-        $query = 'select * from nourriture';
-        $typeNourriture = $dbh->prepare($query);
-        $typeNourriture->execute();
-        $typeNourriture = $typeNourriture->fetchAll();
-        return $typeNourriture;
+        $query = 'select * from nourriture where nourritureId in (select nourritureId from nourriture_restaurant where restaurantId = :restaurantId)';
+        $selectNourriture = $dbh->prepare($query);
+        $selectNourriture->execute([
+            'restaurantId' => $_GET["restaurantId"]
+        ]);
+        $nourritures = $selectNourriture->fetchAll();
+        return $nourritures;
     } catch (PDOException $e) {
         $message = $e->getMessage();
         die($message);

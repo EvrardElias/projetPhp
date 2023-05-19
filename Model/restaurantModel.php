@@ -59,18 +59,24 @@ function createRestaurant($dbh)
             'restaurantLogo' => $_POST["logo"],
             'utilisateurId' => $_SESSION["user"]->utilisateurId
         ]);
-        foreach ($_POST['nourriture'] as $value) {
-            $query = 'insert into nourriture_restaurant (nourritureId, restaurantId) values (:nourritureId, :restaurantId)';
-            $deleteAllRestaurantsFromUser = $dbh->prepare($query);
-            $deleteAllRestaurantsFromUser -> execute([
-                'restaurantId' => $dbh->lastInsertId(),
-                'nourritureId' => $value
-            ]);
-        }
     } catch (PDOException $e) {
         $message = $e ->getMessage();
         die($message);
     }   
+}
+
+function deleteOneRestaurant($dbh)
+{
+    try {
+        $query = 'delete from restaurant where restaurantId = :restaurantId';
+        $deleteAllRestaurantsFromUser = $dbh->prepare($query);
+        $deleteAllRestaurantsFromUser -> execute([
+            'restaurantId' => $_GET["restaurantId"]
+        ]);
+    } catch (PDOException $e) {
+        $message = $e ->getMessage();
+        die($message);
+    }
 }
 
 function deleteAllRestaurantsFromUser($dbh)
@@ -99,3 +105,16 @@ function phoneNumberFormatted($phoneNumber)
     $phoneNumberFormatted = $part4 . "/" . $part1 . "." . $part2 . "." . $part3;
     return $phoneNumberFormatted;
 }
+
+function raccourcirChaine($chaine, $tailleMax)
+  {
+    // Variable locale
+    $positionDernierEspace = 0;
+    if( strlen($chaine) >= $tailleMax )
+    {
+      $chaine = substr($chaine,0,$tailleMax);
+      $positionDernierEspace = strrpos($chaine,' ');
+      $chaine = substr($chaine,0,$positionDernierEspace).'...';
+    }
+    return $chaine;
+  }

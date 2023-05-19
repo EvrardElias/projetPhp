@@ -4,27 +4,27 @@
             <legend>Ajouter un restaurant</legend>
                 <div>
                     <label for="nom">Nom</label>
-                    <input type="text" placeholder="Nom" id="nom" name="nom" value="">
+                    <input type="text" placeholder="Nom" id="nom" name="nom" value="<?php if(isset($restaurant)) : ?><?= $restaurant->restaurantNom ?> <?php endif ?>">
                     <?php if(isset($messageError["nom"])) : ?><small><?= $messageError["nom"] ?></small><?php endif ?>
                 </div>
                 <div>
                     <label for="adresse">Ville</label>
-                    <input type="text" placeholder="Ville" id="ville" name="ville" value="">
+                    <input type="text" placeholder="Ville" id="ville" name="ville" value="<?php if(isset($restaurant)) : ?><?= $restaurant->restaurantVille ?> <?php endif ?>">
                     <?php if(isset($messageError["ville"])) : ?><small><?= $messageError["ville"] ?></small><?php endif ?>
                 </div>
                 <div>
                     <label for="telephone">Numero de Telephone</label>
-                    <input type="text" placeholder="Numero de Telephone" id="telephone" name="telephone" value="">
+                    <input type="text" placeholder="Numero de Telephone" id="telephone" name="telephone" value="<?php if(isset($restaurant)) : ?><?= $restaurant->restaurantNumeroTel ?> <?php endif ?>">
                     <?php if(isset($messageError["telephone"])) : ?><small><?= $messageError["telephone"] ?></small><?php endif ?>
                 </div>
                 <div>
                     <label for="horaire">Heure de fin de livraison</label>
-                    <input type="time" placeholder="Heure de fin de livraison" id="horaire" name="horaire" value="">
+                    <input type="time" placeholder="Heure de fin de livraison" id="horaire" name="horaire" value="<?php if(isset($restaurant)) : ?><?= $restaurant->restaurantHoraire ?> <?php endif ?>">
                     <?php if(isset($messageError["horaire"])) : ?><small><?= $messageError["horaire"] ?></small><?php endif ?>
                 </div>
                 <div>
                     <label for="logo">Logo</label>
-                    <input type="text" placeholder="Lien du logo" id="logo" name="logo" value="">
+                    <input type="text" placeholder="Lien du logo" id="logo" name="logo" value="<?php if(isset($restaurant)) : ?><?= $restaurant->restaurantLogo ?> <?php endif ?>">
                     <?php if(isset($messageError["logo"])) : ?><small><?= $messageError["logo"] ?></small><?php endif ?>
                 </div>
                 <div>
@@ -45,7 +45,7 @@
                     </select>
                 </div>
                 <div>
-                    <button name="btnEnvoi" value="envoyer">Envoyer</button>
+                    <button name="btnEnvoi" value="envoyer"><?php if(isset($restaurant)) : ?> Modifier <?php else : ?> Ajouter <?php endif ?></button>
                 </div>
         </fieldset>
     </form>

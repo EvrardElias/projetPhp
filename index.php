@@ -35,6 +35,7 @@
                         <li><a href="deconnexion">Déconnexion</a></li>
                         <?php if ($_SESSION['user']->utilisateurRole === 'Restaurateur'): ?>
                             <li><a href="ajouterRestaurant">Ajouter un restaurant</a></li>
+                            <li><a href="mesRestaurants">Voir mes restaurants</a></li>
                         <?php endif ?>
                     <?php else : ?>
                         <li><a href="connexion">Connexion</a></li>

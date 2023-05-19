@@ -9,7 +9,13 @@
                 <div class="center">
                     <p><span><?= $restaurant->restaurantHoraire ?></span> - <span><?= $restaurant->restaurantVille ?></span></p>
                     <h3><?= phoneNumberFormatted($restaurant->restaurantNumeroTel) ?></h3>
-                    <button><a href="voirRestaurant?restaurantId=<?= $restaurant->restaurantId ?>" class="button ">Passer commande</a></button>
+                    <?php if($uri === "/mesRestaurants") : ?>
+                        <div class="flexible"></div>
+                        <a href="deleteRestaurant?restaurantId=<?= $restaurant->restaurantId ?>" class="supprimer ">Supprimer le restaurant</a>
+                        <a href="updateRestaurant?restaurantId=<?= $restaurant->restaurantId ?>" class="modifier ">Modifier le restaurant</a>
+                    <?php else : ?>
+                        <a href="voirRestaurant?restaurantId=<?= $restaurant->restaurantId ?>" class="commande ">Passer commande</a>
+                    <?php endif ?>
                 </div>
             </div>
         </div>

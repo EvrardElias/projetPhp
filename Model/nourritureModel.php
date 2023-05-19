@@ -3,11 +3,9 @@
 function selectNourritureRestaurant($dbh)
 {
     try {
-        $query = 'select * from nourriture where nourritureId in (select nourritureId from nourriture_restaurant where restaurantId = :restaurantId)';
+        $query = 'select * from nourriture';
         $selectNourriture = $dbh->prepare($query);
-        $selectNourriture->execute([
-            'restaurantId' => $_GET["restaurantId"]
-        ]);
+        $selectNourriture->execute([]);
         $nourritures = $selectNourriture->fetchAll();
         return $nourritures;
     } catch (PDOException $e) {
@@ -27,6 +25,20 @@ function ajouterNourritureRestaurant($dbh, $restaurantId, $nourritureId )
         ]);
     } catch (PDOException $e) {
         $message = $e->getMessage();
+        die($message);
+    }
+}
+
+function deleteNourritureRestaurant($dbh)
+{
+    try {
+        $query = 'delete from nourriture_restaurant where restaurantId = :restaurantId';
+        $deleteNourritureRestaurant = $dbh->prepare($query);
+        $deleteNourritureRestaurant -> execute([
+            'restaurantId' => $_GET["restaurantId"]
+        ]);
+    } catch (PDOException $e) {
+        $message = $e ->getMessage();
         die($message);
     }
 }

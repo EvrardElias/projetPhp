@@ -15,3 +15,17 @@ function selectMenuRestaurant($dbh)
         die($message);
     }
 }
+
+function deleteMenuRestaurant($dbh)
+{
+    try {
+        $query = 'delete from menu_restaurant where restaurantId = :restaurantId';
+        $deleteMenuRestaurant = $dbh->prepare($query);
+        $deleteMenuRestaurant -> execute([
+            'restaurantId' => $_GET["restaurantId"]
+        ]);
+    } catch (PDOException $e) {
+        $message = $e ->getMessage();
+        die($message);
+    }
+}

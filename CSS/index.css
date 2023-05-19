@@ -63,7 +63,8 @@ main {
     height: 100px;
 }
 
-.modifier {
+.modifier, .commande {
+    display: block;
     background-color: blueviolet;
     color: white;
     padding: 10px 20px;
@@ -74,11 +75,12 @@ main {
     text-decoration: none;
 }
 
-.modifier:hover {
+.modifier:hover, .commande:hover {
     background-color: purple;
 }
 
 .supprimer {
+    display: block;
     background-color: red;
     color: white;
     padding: 10px 20px;

@@ -1,12 +1,12 @@
 <?php
 
-function selectEtoileRestaurant($dbh)
+function selectAllEtoile($dbh)
 {
     try {
         $query = 'select * from etoile';
-        $selectEtoile = $dbh->prepare($query);
-        $selectEtoile->execute([]);
-        $etoiles = $selectEtoile->fetchAll();
+        $selectEtoiles = $dbh->prepare($query);
+        $selectEtoiles->execute([]);
+        $etoiles = $selectEtoiles->fetchAll();
         return $etoiles;
     } catch (PDOException $e) {
         $message = $e->getMessage();
@@ -37,6 +37,22 @@ function deleteEtoileRestaurant($dbh)
         $deleteEtoileRestaurant -> execute([
             'restaurantId' => $_GET["restaurantId"]
         ]);
+    } catch (PDOException $e) {
+        $message = $e ->getMessage();
+        die($message);
+    }
+}
+
+function selectOneEtoile($dbh)
+{
+    try {
+        $query = 'select * from etoile where etoileId in (select etoileId from etoile_restaurant where restaurantId = :restaurantId)';
+        $selectEtoile = $dbh->prepare($query);
+        $selectEtoile -> execute([
+            'restaurantId' => $_GET["restaurantId"]
+        ]);
+        $etoilesRestaurant = $selectEtoile->fetch();
+        return $etoilesRestaurant;
     } catch (PDOException $e) {
         $message = $e ->getMessage();
         die($message);

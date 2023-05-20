@@ -16,6 +16,39 @@ function selectMenuRestaurant($dbh)
     }
 }
 
+function createMenu($dbh)
+{
+    try {
+        $query = 'insert into menu (menuNom, menuPrix, MenuDescription) values (:menuNom, :menuPrix, :MenuDescription)';
+        $createMenu = $dbh->prepare($query);
+        $createMenu -> execute([
+            'menuNom' => htmlentities($_POST["nom"]),
+            'menuPrix' => htmlentities($_POST["prix"]),
+            'MenuDescription' => htmlentities($_POST["description"])
+        ]);
+    } catch (PDOException $e) {
+        $message = $e ->getMessage();
+        die($message);
+    }   
+}
+
+function updateMenu($dbh)
+{
+    try {
+        $query = 'update menu set menuNom = :menuNom, menuPrix = :menuPrix, menuDescription = :menuDescription where menuId = :menuId';
+        $updateRestaurant = $dbh->prepare($query);
+        $updateRestaurant -> execute([
+            'menuNom' => htmlentities($_POST["nom"]),
+            'menuPrix' => htmlentities($_POST["prix"]),
+            'menuDescription' => htmlentities($_POST["description"]),
+            'menuId' => $_GET["menuId"]
+        ]);
+    } catch (PDOException $e) {
+        $message = $e ->getMessage();
+        die($message);
+    }
+}
+
 function deleteMenuRestaurant($dbh)
 {
     try {

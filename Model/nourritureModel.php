@@ -1,6 +1,6 @@
 <?php
 
-function selectNourritureRestaurant($dbh)
+function selectAllNourriture($dbh)
 {
     try {
         $query = 'select * from nourriture';
@@ -37,6 +37,22 @@ function deleteNourritureRestaurant($dbh)
         $deleteNourritureRestaurant -> execute([
             'restaurantId' => $_GET["restaurantId"]
         ]);
+    } catch (PDOException $e) {
+        $message = $e ->getMessage();
+        die($message);
+    }
+}
+
+function selectOneNourriture($dbh)
+{
+    try {
+        $query = 'select * from nourriture where nourritureId in (select nourritureId from nourriture_restaurant where restaurantId = :restaurantId)';
+        $selectNourritures = $dbh->prepare($query);
+        $selectNourritures -> execute([
+            'restaurantId' => $_GET["restaurantId"]
+        ]);
+        $nourritures = $selectNourritures->fetchAll();
+        return $nourritures;
     } catch (PDOException $e) {
         $message = $e ->getMessage();
         die($message);

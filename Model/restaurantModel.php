@@ -50,19 +50,38 @@ function createRestaurant($dbh)
 {
     try {
         $query = 'insert into restaurant (restaurantNom, restaurantVille, restaurantNumeroTel, restaurantHoraire, restaurantLogo, utilisateurId) values (:restaurantNom, :restaurantVille, :restaurantNumeroTel, :restaurantHoraire, :restaurantLogo, :utilisateurId)';
-        $deleteAllRestaurantsFromUser = $dbh->prepare($query);
-        $deleteAllRestaurantsFromUser -> execute([
-            'restaurantNom' => $_POST["nom"],
-            'restaurantVille' => $_POST["ville"],
-            'restaurantNumeroTel' => $_POST["telephone"],
-            'restaurantHoraire' => $_POST["horaire"],
-            'restaurantLogo' => $_POST["logo"],
+        $createRestaurant= $dbh->prepare($query);
+        $createRestaurant -> execute([
+            'restaurantNom' => htmlentities($_POST["nom"]),
+            'restaurantVille' => htmlentities($_POST["ville"]),
+            'restaurantNumeroTel' => htmlentities($_POST["telephone"]),
+            'restaurantHoraire' => htmlentities($_POST["horaire"]),
+            'restaurantLogo' => htmlentities($_POST["logo"]),
             'utilisateurId' => $_SESSION["user"]->utilisateurId
         ]);
     } catch (PDOException $e) {
         $message = $e ->getMessage();
         die($message);
     }   
+}
+
+function updateRestaurant($dbh)
+{
+    try {
+        $query = 'update restaurant set restaurantNom = :restaurantNom, restaurantVille = :restaurantVille, restaurantNumeroTel = :restaurantNumeroTel, restaurantHoraire = :restaurantHoraire, restaurantLogo = :restaurantLogo where restaurantId = :restaurantId';
+        $updateRestaurant = $dbh->prepare($query);
+        $updateRestaurant -> execute([
+            'restaurantNom' => htmlentities($_POST["nom"]),
+            'restaurantVille' => htmlentities($_POST["ville"]),
+            'restaurantNumeroTel' => htmlentities($_POST["telephone"]),
+            'restaurantHoraire' => htmlentities($_POST["horaire"]),
+            'restaurantLogo' => htmlentities($_POST["logo"]),
+            'restaurantId' => $_GET["restaurantId"]
+        ]);
+    } catch (PDOException $e) {
+        $message = $e ->getMessage();
+        die($message);
+    }
 }
 
 function deleteOneRestaurant($dbh)
@@ -107,8 +126,7 @@ function phoneNumberFormatted($phoneNumber)
 }
 
 function raccourcirChaine($chaine, $tailleMax)
-  {
-    // Variable locale
+{
     $positionDernierEspace = 0;
     if( strlen($chaine) >= $tailleMax )
     {
@@ -117,4 +135,4 @@ function raccourcirChaine($chaine, $tailleMax)
       $chaine = substr($chaine,0,$positionDernierEspace).'...';
     }
     return $chaine;
-  }
+}

@@ -23,8 +23,8 @@ if ($uri === "/index.php" || $uri === "/") {
         ajouterEtoileRestaurant($dbh, $restaurantId, $_POST['etoile']);
         header("location:/mesRestaurants");
     }
-    $nourritures = selectNourritureRestaurant($dbh);
-    $etoiles = selectEtoileRestaurant($dbh);
+    $nourritures = selectAllNourriture($dbh);
+    $etoiles = selectAllEtoile($dbh);
     require_once "Templates/Restaurants/editOrCreateRestaurant.php";
 
 } elseif ($uri === "/mesRestaurants") {
@@ -32,8 +32,8 @@ if ($uri === "/index.php" || $uri === "/") {
     require_once "Templates/Restaurants/pageAcceuil.php";
 } elseif (isset($_GET["restaurantId"]) && $uri === "/voirRestaurant?restaurantId=" . $_GET["restaurantId"]) {
     $restaurant = selectOneRestaurant($dbh);
-    $nourritures = selectNourritureRestaurant($dbh);
-    $etoiles = selectEtoileRestaurant($dbh);
+    $nourritures = selectOneNourriture($dbh);
+    $etoiles = selectOneEtoile($dbh);
     $menus = selectMenuRestaurant($dbh, $_GET["restaurantId"]);
     require_once "Templates/Restaurants/voirRestaurant.php";
 } elseif (isset($_GET["restaurantId"]) && $uri === "/deleteRestaurant?restaurantId=" . $_GET["restaurantId"]) {
@@ -43,10 +43,26 @@ if ($uri === "/index.php" || $uri === "/") {
     deleteOneRestaurant($dbh);
     header("location:/mesRestaurants");
     require_once "Templates/Restaurants/voirRestaurant.php";
+
 } elseif (isset($_GET["restaurantId"]) && $uri === "/updateRestaurant?restaurantId=" . $_GET["restaurantId"]) {
+    
+    if (isset($_POST['btnEnvoi'])) {
+        updateRestaurant($dbh);
+        deleteNourritureRestaurant($dbh);
+        deleteEtoileRestaurant($dbh);
+        for ($i = 0; $i < count($_POST["nourriture"]); $i++){
+            $nourritureId = $_POST["nourriture"][$i];
+            ajouterNourritureRestaurant($dbh, $restaurantId, $nourritureId);
+        }
+        ajouterEtoileRestaurant($dbh, $restaurantId, $_POST['etoile']);
+        header("location:/mesRestaurants");
+    }
+
     $restaurant = selectOneRestaurant($dbh);
-    $nourritures = selectNourritureRestaurant($dbh);
-    $etoiles = selectEtoileRestaurant($dbh);
-    //$heure = raccourcirChaine($restaurant["restaurantHoraire"], 5);
+    $nourrituresRestaurant = selectOneNourriture($dbh);
+    $etoilesRestaurant = selectOneEtoile($dbh);
+    $nourritures = selectAllNourriture($dbh);
+    $etoiles = selectAllEtoile($dbh);
+    $heure = substr($restaurant->restaurantHoraire, 0, 5);
     require_once "Templates/Restaurants/editOrCreateRestaurant.php";
 }

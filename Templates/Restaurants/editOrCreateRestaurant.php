@@ -1,7 +1,7 @@
 <div class="form-container">
     <form method="post" action="">
         <fieldset>
-            <legend>Ajouter un restaurant</legend>
+            <legend><?php if(isset($restaurant)) : ?>Modifier le restaurant <?php else : ?> Ajouter un restaurant <?php endif ?></legend>
                 <div>
                     <label for="nom">Nom</label>
                     <input type="text" placeholder="Nom" id="nom" name="nom" value="<?php if(isset($restaurant)) : ?><?= $restaurant->restaurantNom ?> <?php endif ?>">
@@ -19,7 +19,7 @@
                 </div>
                 <div>
                     <label for="horaire">Heure de fin de livraison</label>
-                    <input type="time" placeholder="Heure de fin de livraison" id="horaire" name="horaire" value="<?php if(isset($restaurant)) : ?><?= $restaurant->restaurantHoraire ?> <?php endif ?>">
+                    <input type="time" placeholder="Heure de fin de livraison" id="horaire" name="horaire" value="<?= isset($restaurant) ? $heure : '' ?>">
                     <?php if(isset($messageError["horaire"])) : ?><small><?= $messageError["horaire"] ?></small><?php endif ?>
                 </div>
                 <div>
@@ -31,21 +31,23 @@
                     <label for="nourriture">Type de nourriture</label>
                     <select id="nourriture" name="nourriture[]" multiple>
                         <?php foreach($nourritures as $nourriture) : ?>
-                            <option value="<?= $nourriture->nourritureId ?>"><?= $nourriture->nourritureType ?></option>
+                            <option value="<?= $nourriture->nourritureId ?>" <?php if(isset($restaurant)):?> <?php foreach($nourrituresRestaurant as $nourritureRestaurant) : ?><?= $nourriture->nourritureId === $nourritureRestaurant->nourritureId ? 'selected' : '' ?><?php endforeach ?><?php endif ?>><?= $nourriture->nourritureType ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
                 <div>
                     <label for="etoile">Nombre d'étoile</label>
-                    <select id="etoile" name="etoile" required>
-                        <option value="">--Choisissez le nombre d'étoile--</option>
+                    <select id="etoile" name="etoile">
                         <?php foreach($etoiles as $etoile) : ?>
-                            <option value="<?= $etoile->etoileId ?>"><?= $etoile->etoileNombre ?></option>
+                            <option value="<?= $etoile->etoileId ?>"  <?= isset($restaurant) && $etoile->etoileId === $etoilesRestaurant->etoileId ? 'selected' : '' ?>><?= $etoile->etoileNombre ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
                 <div>
                     <button name="btnEnvoi" value="envoyer"><?php if(isset($restaurant)) : ?> Modifier <?php else : ?> Ajouter <?php endif ?></button>
+                    <?php if(isset($restaurant)) : ?>
+                        <button><a href="voirMenu?restaurantId=<?= $restaurant->restaurantId ?>" class="button ">Voir menu</a></button>
+                    <?php endif ?>
                 </div>
         </fieldset>
     </form>

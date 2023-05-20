@@ -2,12 +2,13 @@
 
 <div class="flexible justify-content-space-around wrap">
     <?php foreach ($restaurants as $restaurant) : ?>
+        <?php $heure = substr($restaurant->restaurantHoraire, 0, 5); ?>
         <div class="cadreResto">
             <h2 class="center"><?= $restaurant->restaurantNom ?></h2>
             <div>
                 <div class="blocImageResto"><img src="<?= $restaurant->restaurantLogo ?>" alt="Logo du restaurant" /></div>
                 <div class="center">
-                    <p><span><?= $restaurant->restaurantHoraire ?></span> - <span><?= $restaurant->restaurantVille ?></span></p>
+                    <p><span><?= $heure ?></span> - <span><?= $restaurant->restaurantVille ?></span></p>
                     <h3><?= phoneNumberFormatted($restaurant->restaurantNumeroTel) ?></h3>
                     <?php if($uri === "/mesRestaurants") : ?>
                         <div class="flexible"></div>

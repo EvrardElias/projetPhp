@@ -1,4 +1,5 @@
 <h1>Les menu du restaurant</h1>
+
 <?php foreach ($menus as $menu) : ?>
     <div class="center blocMenu">
         <p class="nomPrix flexible justify-content-space-around"><span><?= $menu->menuNom ?></span> - <span><?= $menu->menuPrix ?> €</span></p>

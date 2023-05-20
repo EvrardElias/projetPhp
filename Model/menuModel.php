@@ -1,6 +1,6 @@
 <?php
 
-function selectMenuRestaurant($dbh)
+function selectAllMenuRestaurant($dbh)
 {
     try {
         $query = 'select * from menu where menuId in (select menuId from menu_restaurant where restaurantId = :restaurantId)';

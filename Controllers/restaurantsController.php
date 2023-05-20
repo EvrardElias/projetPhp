@@ -34,7 +34,7 @@ if ($uri === "/index.php" || $uri === "/") {
     $restaurant = selectOneRestaurant($dbh);
     $nourritures = selectOneNourriture($dbh);
     $etoiles = selectOneEtoile($dbh);
-    $menus = selectMenuRestaurant($dbh, $_GET["restaurantId"]);
+    $menus = selectAllMenuRestaurant($dbh, $_GET["restaurantId"]);
     require_once "Templates/Restaurants/voirRestaurant.php";
 } elseif (isset($_GET["restaurantId"]) && $uri === "/deleteRestaurant?restaurantId=" . $_GET["restaurantId"]) {
     deleteNourritureRestaurant($dbh);
@@ -56,6 +56,9 @@ if ($uri === "/index.php" || $uri === "/") {
         }
         ajouterEtoileRestaurant($dbh, $restaurantId, $_POST['etoile']);
         header("location:/mesRestaurants");
+    } elseif (isset($_POST['btnMenu'])) {
+        $menus = selectAllMenuRestaurant($dbh);
+        require_once "Templates/Menus/voirMenu.php";
     }
 
     $restaurant = selectOneRestaurant($dbh);

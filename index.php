@@ -53,6 +53,7 @@
         <?php 
             require_once "Controllers/restaurantsController.php";
             require_once "Controllers/usersController.php";
+            require_once "Controllers/menuController.php";
         ?>
     </main>
     <footer>

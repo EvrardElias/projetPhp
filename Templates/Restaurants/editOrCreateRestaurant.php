@@ -46,7 +46,7 @@
                 <div>
                     <button name="btnEnvoi" value="envoyer"><?php if(isset($restaurant)) : ?> Modifier <?php else : ?> Ajouter <?php endif ?></button>
                     <?php if(isset($restaurant)) : ?>
-                        <button><a href="voirMenu?restaurantId=<?= $restaurant->restaurantId ?>" class="button ">Voir menu</a></button>
+                        <button name="btnEnvoi" value="envoyer">Voir menu</button>
                     <?php endif ?>
                 </div>
         </fieldset>

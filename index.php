@@ -33,6 +33,7 @@
                     <?php if (isset($_SESSION["user"])) : ?>
                         <li><a href="profil">Profil</a></li>
                         <li><a href="deconnexion">Déconnexion</a></li>
+                        <li><a href="discussion">Discussion</a></li>
                         <?php if ($_SESSION['user']->utilisateurRole === 'Restaurateur'): ?>
                             <li><a href="ajouterRestaurant">Ajouter un restaurant</a></li>
                             <li><a href="mesRestaurants">Voir mes restaurants</a></li>
@@ -54,6 +55,7 @@
             require_once "Controllers/restaurantsController.php";
             require_once "Controllers/usersController.php";
             require_once "Controllers/menuController.php";
+            require_once "Controllers/discussionController.php";
         ?>
     </main>
     <footer>

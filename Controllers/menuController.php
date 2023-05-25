@@ -1,6 +1,6 @@
 <?php
 
-require_once "Model/menuModel.php";
+/*require_once "Model/menuModel.php";
 require_once "Model/restaurantModel.php";
 
 if($uri === "voirMenu?restaurantId=" . $_GET["restaurantId"]) {
@@ -20,4 +20,4 @@ if($uri === "voirMenu?restaurantId=" . $_GET["restaurantId"]) {
 
 
 
-//<a href="voirMenu?restaurantId=<?= $restaurant->restaurantId ?>" class="button">Voir menu</a>
+//<a href="voirMenu?restaurantId=<?= $restaurant->restaurantId ?>" class="button">Voir menu</a> */
